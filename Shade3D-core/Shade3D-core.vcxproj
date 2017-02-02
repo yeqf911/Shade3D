@@ -69,17 +69,26 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies\GLFW\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\GLFW\lib-vc2015\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\SOIL\include\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLM\include\;$(SolutionDir)Dependencies\GLFW\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\SOIL\lib\;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib-vc2015\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\GLFW\include\;$(SolutionDir)Dependencies\GLEW\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib-vc2015\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -97,10 +106,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -117,11 +128,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\buffer\ibo.cpp" />
+    <ClCompile Include="src\graphics\buffer\vao.cpp" />
+    <ClCompile Include="src\graphics\buffer\vbo.cpp" />
+    <ClCompile Include="src\graphics\renderable2D.cpp" />
+    <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\maths\maths.h" />
+    <ClCompile Include="src\maths\matrix4f.cpp" />
+    <ClCompile Include="src\maths\vec2.cpp" />
+    <ClCompile Include="src\maths\vec3.cpp" />
+    <ClCompile Include="src\maths\vec4.cpp" />
+    <ClCompile Include="src\utils\fileutils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\buffer\buffer.h" />
+    <ClInclude Include="src\graphics\buffer\ibo.h" />
+    <ClInclude Include="src\graphics\buffer\vao.h" />
+    <ClInclude Include="src\graphics\buffer\vbo.h" />
+    <ClInclude Include="src\graphics\renderable2D.h" />
+    <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\window.h" />
+    <ClInclude Include="src\maths\matrix4f.h" />
+    <ClInclude Include="src\maths\vec2.h" />
+    <ClInclude Include="src\maths\vec3.h" />
+    <ClInclude Include="src\maths\vec4.h" />
+    <ClInclude Include="src\utils\logger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\rectangle.frag" />
+    <None Include="src\shaders\rectangle.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\awesomeface.png" />
+    <Image Include="res\container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

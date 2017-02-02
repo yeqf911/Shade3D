@@ -1,42 +1,29 @@
 #include "window.h"
+#include "../utils/logger.h"
 
-namespace shade
+namespace Shade
 {
-namespace graphics
+namespace Graphics
 {
 	//typedef void(*GLFWframebuffersizefun)(GLFWwindow*, int, int);
-
-	/**
-	* \brief 错误发生回调函数
-	* \param error
-	* \param description
-	*/
-	void OnErrorOccur(int error, const char* description);
-
-	/**
-	* \brief 窗口大小改变回调函数
-	* \param window
-	* \param width
-	* \param height
-	*/
-	void OnWindowResize(GLFWwindow* window, int width, int height);
-
-	/**
-	* \brief 试图关闭窗口时回调函数
-	* \param window
-	*/
-	void OnWindowClose(GLFWwindow* window);
-
 
 	Window::Window(char* title, int width, int height)
 	{
 		m_title = title;
 		m_width = width;
 		m_height = height;
-		m_clased = false;
+		m_clased = true;
 		if (!init())
-		{
 			glfwTerminate();
+		
+		for (int i = 0; i < MAX_KEYS; ++i)
+		{
+			m_keys[i] = false;
+		}
+
+		for (int i = 0; i < MAX_MOUSE_BUTTONS; i++)
+		{
+			m_mouseButtons[i] = false;
 		}
 
 		std::cout << "[OpenGL VERSION]: " << glGetString(GL_VERSION) << std::endl;
@@ -46,8 +33,6 @@ namespace graphics
 	{
 		glfwTerminate();
 	}
-
-	
 
 	bool Window::init()
 	{
@@ -67,58 +52,106 @@ namespace graphics
 			std::cout << "Failed to create GLFW Window!" << std::endl;
 			return false;
 		}
+		glfwMakeContextCurrent(m_window);	
 
-		glfwMakeContextCurrent(m_window);
-		/* 设置窗口大小改变回调函数 */
-		glfwSetFramebufferSizeCallback(m_window, OnWindowResize);
-		glfwSetWindowCloseCallback(m_window, OnWindowClose);
+		setCallBack();
+		/* Make Sure that GLEW initialize after upon*/
+		if (glewInit() != GLEW_OK)
+		{
+			std::cout << "GLEW Initialize Failed!" << std::endl;
+			return false;
+		}
+		m_clased = false;
 		return true;
 	}
 
-	void Window::clear() const
+	void Window::setCallBack()
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glfwSetWindowUserPointer(m_window, this);
+		glfwSetFramebufferSizeCallback(m_window, OnWindowResize);
+		glfwSetWindowCloseCallback(m_window, OnWindowClose);
+		glfwSetMouseButtonCallback(m_window, OnMouseButtonPressed);
+		glfwSetKeyCallback(m_window, OnKeyPressed);
+		glfwSetCursorPosCallback(m_window, OnCursorMove);
+	}
+
+	void Window::clear(const Maths::vec4& rgba) const
+	{
+		glClearColor(rgba.x, rgba.y, rgba.z, rgba.w);
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void Window::render() const
 	{
-		//glClear(GL_COLOR_BUFFER_BIT);
+		// TODO: render
 	}
 
 	void Window::update() const
 	{
+		GLenum error;
+		error = glGetError();
+		if (error != GLEW_NO_ERROR)
+		{
+			LOG("OpenGL Error: ", error);
+		}
 		/* Render here */
-		render();
-
-		/* Swap front and back buffers */
-		glfwSwapBuffers(m_window);
 		/* Poll for and process events */
 		glfwPollEvents();
+		/* Swap front and back buffers */
+		glfwSwapBuffers(m_window);
 	}
 
 	
 	bool Window::closed() const
 	{
-		return glfwWindowShouldClose(m_window);
+		return m_clased;
 	}
 
 	// 下面是 CallBack function
 	void OnErrorOccur(int error, const char* description)
 	{
 		//TODO: Error handler
-		std::cout << "error<" << error << "> " << description << std::endl;
+		LOG("Error: ", description);
 	}
 
 	void OnWindowResize(GLFWwindow* window, int width, int height)
 	{
 		glViewport(0, 0, width, height);
+		Window *wnd = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		wnd->m_width = width;
+		wnd->m_height = height;
 	}
 
 	void OnWindowClose(GLFWwindow* window)
 	{
-		std::cout << "Closed" << std::endl;
+		LOG("[OpenGL]: ", "Window Closed");
+		Window *wnd = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		wnd->m_clased = true;
 		//glfwSetWindowShouldClose(this->m_window, );
 	}
 
+	void OnKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+		Window *wnd = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		wnd->m_keys[key] = (action != GLFW_RELEASE);
+		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		{
+			glfwSetWindowShouldClose(wnd->m_window, GL_TRUE);
+			wnd->m_clased = true;
+		}
+	}
+
+	void OnCursorMove(GLFWwindow* window, double xpos, double ypos)
+	{
+		Window *wnd = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		wnd->m_corsorX = xpos;
+		wnd->m_cursorY = ypos;
+	}
+
+	void OnMouseButtonPressed(GLFWwindow* window, int button, int action, int mods)
+	{
+		Window *wnd = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		wnd->m_mouseButtons[button] = (action != GLFW_RELEASE);
+	}
 } // end of namespace graphics
 } // end of namespace shade
