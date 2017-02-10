@@ -20,7 +20,7 @@ namespace Graphics
 		VertexArray();
 		~VertexArray();
 
-		void addVBO(const VertexBuffer& vbo, GLuint location, GLuint elementPerAttr, const GLuint offset);
+		void addVBO(const VertexBuffer& vbo, GLuint location);
 		void addIBO(const IndexBuffer& ibo);
 		void bind() const;
 		void unbind() const;

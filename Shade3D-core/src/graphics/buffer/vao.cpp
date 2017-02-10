@@ -13,18 +13,18 @@ namespace Graphics
 	{
 	}
 
-	void VertexArray::addVBO(const VertexBuffer& vbo, GLuint location, GLuint elementPerAttr, const GLuint offset)
+	void VertexArray::addVBO(const VertexBuffer& vbo, GLuint location)
 	{
 		bind();
 		vbo.bind();
 		glEnableVertexAttribArray(location);
 		glVertexAttribPointer(
 			location, 
-			elementPerAttr,
+			vbo.getVertDataCount(),
 			GL_FLOAT, 
 			GL_FALSE,
-			vbo.getVertDataCount() * sizeof(GLfloat),
-			(GLvoid*)(offset * sizeof(GLfloat))
+			0,
+			0
 		);
 		unbind();
 		//m_vbos.push_back(vbo);
@@ -32,9 +32,9 @@ namespace Graphics
 
 	void VertexArray::addIBO(const IndexBuffer& ibo)
 	{
-		//bind();
+		bind();
 		ibo.bind();
-		//unbind();
+		unbind();
 	}
 
 	void VertexArray::bind() const

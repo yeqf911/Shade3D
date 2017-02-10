@@ -157,8 +157,8 @@
     <ClInclude Include="src\utils\logger.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\rectangle.frag" />
-    <None Include="src\shaders\rectangle.vert" />
+    <None Include="src\shaders\rectangle.fs" />
+    <None Include="src\shaders\rectangle.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\awesomeface.png" />

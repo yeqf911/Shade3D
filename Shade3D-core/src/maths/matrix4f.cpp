@@ -89,7 +89,7 @@ namespace Maths
 		return mat4;
 	}
 
-	matrix4f matrix4f::orthographic(float left, float right, float top, float bottom, float far, float near)
+	matrix4f matrix4f::orthographic(float left, float right, float top, float bottom, float near, float far)
 	{
 		matrix4f mat4 = matrix4f(1.0f);
 		mat4._element[0 + 0 * 4] = 2.0f / (right - left);

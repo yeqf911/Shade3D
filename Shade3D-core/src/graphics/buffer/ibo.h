@@ -15,7 +15,7 @@ namespace Graphics
 		GLuint m_size;
 
 	public:
-		IndexBuffer(const GLushort* data, const GLsizei size, GLenum usage);
+		IndexBuffer(const GLuint* data, const GLsizei size, GLenum usage = GL_STATIC_DRAW);
 		~IndexBuffer();
 		void bind() const;
 		void unbind() const;

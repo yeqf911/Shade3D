@@ -120,6 +120,7 @@ namespace Graphics
 		Window *wnd = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		wnd->m_width = width;
 		wnd->m_height = height;
+		wnd->update();
 	}
 
 	void OnWindowClose(GLFWwindow* window)

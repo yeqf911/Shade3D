@@ -16,7 +16,7 @@ namespace Graphics
 		GLuint m_vertDataCount;
 
 	public:
-		VertexBuffer(const GLfloat *data, const GLsizei size, const GLuint vertDataCount, GLenum usage);
+		VertexBuffer(const GLfloat *data, const GLsizei size, const GLuint vertDataCount, GLenum usage = GL_STATIC_DRAW);
 		~VertexBuffer();
 
 		void bind() const;

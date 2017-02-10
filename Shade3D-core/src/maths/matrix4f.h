@@ -30,10 +30,10 @@ namespace Maths
 		/* 单位矩阵 */
 		static matrix4f identity();
 
-		// 正交矩阵 fov = field of view, aspect = 方向 */
+		// 透视矩阵 fov = field of view, aspect = 方向 */
 		static matrix4f perspective(float fov, float aspect, float near, float far);
 
-		/* 透视矩阵 */
+		/* 正视矩阵 */
 		static matrix4f orthographic(float left, float right, float top, float bottom, float near, float far);
 
 		/* 平移矩阵，该矩阵可以使指定矢量平移 vector 个单位 */

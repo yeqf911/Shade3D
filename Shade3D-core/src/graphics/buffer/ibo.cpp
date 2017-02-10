@@ -4,7 +4,7 @@ namespace Shade
 {
 namespace Graphics
 {	
-	IndexBuffer::IndexBuffer(const GLushort* data, const GLsizei size, GLenum usage)
+	IndexBuffer::IndexBuffer(const GLuint* data, const GLsizei size, GLenum usage)
 	{
 		m_size = size;
 		glGenBuffers(1, &m_ibo);

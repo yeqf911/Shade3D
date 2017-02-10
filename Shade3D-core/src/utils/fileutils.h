@@ -15,14 +15,14 @@ namespace Shade
 
 		fseek(fp, 0, SEEK_END);
 		unsigned long length = ftell(fp);
-		char *data = new char[length + 1];
+		char* data = new char[length + 1];
 		memset(data, 0, length + 1);
 		fseek(fp, 0, SEEK_SET);
 		fread(data, 1, length, fp);
 		fclose(fp);
 		std::string str(data);
 		delete[] data;
-		return  str;
+		return str;
 	}
 }
 
