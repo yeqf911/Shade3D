@@ -25,7 +25,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-	Window window = Window("Shade3D", 640, 360);
+	Window window = Window("Shade3D", 1600, 900);
 
 	GLint nrAttributes;
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
@@ -171,6 +171,7 @@ int main()
 		shader.setUniformMatrix4fv("ml_matrix", GL_FALSE, matrix4f::translation(vec3(4, 3, 0)));
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		spritB.unbind();
+		hello world
 		*/
 		window.update();
 	}
