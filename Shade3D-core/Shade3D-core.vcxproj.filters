@@ -94,14 +94,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\rectangle.fs" />
-    <None Include="src\shaders\rectangle.vs" />
+    <None Include="res\shaders\rectangle.fs" />
+    <None Include="res\shaders\rectangle.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\container.jpg">
+    <Image Include="res\image\awesomeface.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\awesomeface.png">
+    <Image Include="res\image\container.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

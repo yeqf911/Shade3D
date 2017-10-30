@@ -70,7 +70,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\SOIL\include\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLM\include\;$(SolutionDir)Dependencies\GLFW\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\SOIL\lib\;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib-vc2015\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\SOIL\lib\;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
   </PropertyGroup>
@@ -79,6 +79,12 @@
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
     <IncludePath>$(SolutionDir)Dependencies\GLFW\include\;$(SolutionDir)Dependencies\GLEW\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib-vc2015\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\SOIL\include\;$(SolutionDir)Dependencies\GLFW\include\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLM\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\SOIL\lib\;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -97,7 +103,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -157,12 +167,12 @@
     <ClInclude Include="src\utils\logger.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\rectangle.fs" />
-    <None Include="src\shaders\rectangle.vs" />
+    <None Include="res\shaders\rectangle.fs" />
+    <None Include="res\shaders\rectangle.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\awesomeface.png" />
-    <Image Include="res\container.jpg" />
+    <Image Include="res\image\awesomeface.png" />
+    <Image Include="res\image\container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../maths/vec4.h"
+#include <list>
 
 namespace Shade
 {
@@ -95,6 +96,7 @@ namespace Graphics
 				//TODO: Log somethong
 				return false;
 			}
+			std::list<int> s;
 			return m_mouseButtons[mouseBtnCode];
 		}
 		

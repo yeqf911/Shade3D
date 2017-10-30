@@ -11,9 +11,6 @@ namespace Graphics
 	public:
 		Renderable2D();
 		~Renderable2D();
-
-
-		
 	};
 
 } // namespace Graphics

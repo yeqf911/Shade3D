@@ -18,8 +18,6 @@ namespace Graphics
 	{
 	private:
 		GLuint m_shaderID;
-		//std::string m_vertShader;
-		//std::string m_fragShader;
 		std::string m_vertPath;
 		std::string m_fragPath;
 

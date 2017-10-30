@@ -84,6 +84,7 @@ namespace Graphics
 	void Window::render() const
 	{
 		// TODO: render
+		
 	}
 
 	void Window::update() const
