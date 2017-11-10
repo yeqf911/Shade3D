@@ -128,4 +128,4 @@ namespace Graphics
 		return glGetUniformLocation(m_shaderID, uniform);
 	}
 } // namespace Graphics
-} // namespace Shade
+} // namespace Shade hekki
